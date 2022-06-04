@@ -37,7 +37,26 @@ class HinoNovoController {
         try {
             const result = await hinoNovoService.findAll()
 
-            console.log(result)
+            res.status(200)
+            return res.json({data: result});
+        } catch (error) {
+            console.log(error)
+            res.status(500)
+            return res.json({msg: "Server Error"});
+        }
+    }
+
+    async getById(req, res){
+
+        try {
+            const { id } = req.params
+
+            if (!id) {
+                res.status(400)
+                return res.json({msg: "Id não informado"});
+            }
+
+            const result = await hinoNovoService.findById(id)
 
             res.status(200)
             return res.json({data: result});
